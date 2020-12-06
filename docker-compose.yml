@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: career-portal-web
+    container_name: condo-web
     depends_on:
       - database
     volumes:
@@ -13,7 +13,7 @@ services:
       - 8000:80
 
   database:
-    container_name: career-portal-db
+    container_name: condo-db
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
     restart: always
