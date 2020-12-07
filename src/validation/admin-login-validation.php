@@ -2,6 +2,7 @@
 $valid = true; // at the end we will proceed to the next page only if valid is true
 
 $logInErrorMessage = array();
+$registerErrorMessage = array();
 
 foreach ($_POST as $key => $value) { // if any of the fields are empty the user has to fix it.
 
@@ -11,14 +12,13 @@ foreach ($_POST as $key => $value) { // if any of the fields are empty the user 
 }
 
 if ($valid == true) {
-    // if (strcasecmp($_POST['userName'], 'admin')==0 && $_POST['password'] == 'admin') { // if this is admin
-    //     $_SESSION["userName"] = "admin";
-    //     echo "<script type='text/javascript'>window.location.href = '../dashboards/admin_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
-    // } else {
-    //     // If we reach here then both username and password fields were filled out and are not empty.
-    //     $SignInErrorMessage[] = "Your username/password is not correct!";
-    // }
-    
+    if (strcasecmp($_POST['adminUserName'], 'admin')==0 && $_POST['adminPassword'] == 'admin') { // if this is admin
+         $_SESSION["userName"] = "admin";
+         echo "<script type='text/javascript'>window.location.href = '../dashboards/admin-dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
+     } else {
+       // If we reach here then both username and password fields were filled out and are not empty.
+         $logInErrorMessage[] = "Your username/password is not correct!";
+     }
 }
 // -------------------------------------------------------------------------------------------------------------
 else { // this means one or more of the fields are empty. (valid is not true)
@@ -40,3 +40,19 @@ else { // this means one or more of the fields are empty. (valid is not true)
 //             break;
 //     }
 // }
+foreach ($_POST as $key => $value) { // if any of the fields are empty the user has to fix it.
+
+    if (empty($_POST[$key])) {   
+        $valid = false;
+    }
+}
+
+if ($valid == true) {
+    if ($_POST['confirm_password'] != $_POST['password']){
+           $registerErrorMessage[] = "Password does not match!";
+         } 
+}
+// -------------------------------------------------------------------------------------------------------------
+else { // this means one or more of the fields are empty. (valid is not true)
+    $registerErrorMessage[] = "All fields are required.";
+}
