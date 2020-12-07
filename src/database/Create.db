@@ -1,0 +1,54 @@
+DROP DATABASE IF EXISTS test_db;
+CREATE DATABASE test_db;
+USE test_db;
+
+CREATE TABLE Member
+(
+   MemberID INT NOT NULL AUTO_INCREMENT,
+   Name VARCHAR(100)  NOT NULL,
+   Password VARCHAR(100) NOT NULL,
+   Address VARCHAR(100) NOT NULL,
+   Email VARCHAR(100) NOT NULL,
+   Status VARCHAR(100) NOT NULL,
+   Priviledge VARCHAR(100) NOT NULL,
+   PostID INT NOT NULL,
+   PostStatus VARCHAR(100) NOT NULL,
+   PRIMARY KEY (MemberID)
+
+   
+);
+
+CREATE TABLE Condo
+(
+	CondoNumber INT NOT NULL AUTO_INCREMENT,
+   StorageNumber INT  NOT NULL,
+   ParkingNumber INT  NOT NULL,
+   SquareMeter INT NOT NULL,
+   OwnerID INT NOT NULL ,
+   PRIMARY KEY (CondoNumber),
+   FOREIGN KEY (OwnerID) REFERENCES Member (MemberID)
+);
+
+
+CREATE TABLE Administrator
+(
+  AdministratorID INT NOT NULL AUTO_INCREMENT,
+  UsernameAdmin VARCHAR(100)  NOT NULL,
+  PasswordAdmin VARCHAR(100) NOT NULL,
+  BuildingNumber INT  NOT NULL,
+  MemberID INT NOT NULL,
+  PRIMARY KEY (AdministratorID),
+  FOREIGN KEY (MemberID) REFERENCES Member (MemberID)
+   
+    
+);
+CREATE TABLE CondoGroups
+(
+  GroupID INT NOT NULL ,
+  MemberID INT NOT NULL,
+  Leader INT NOT NULL,
+   FOREIGN KEY (MemberID) REFERENCES Member (MemberID)
+   
+   
+    
+);

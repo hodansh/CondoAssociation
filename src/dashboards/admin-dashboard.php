@@ -3,6 +3,7 @@
     session_start();
     echo "Welcome ". $_SESSION['userName'];
     include_once "../validation/admin-dashboard-validation.php";
+    include_once "../database_operations.php";
 ?>
 <html>
 <head>
@@ -24,6 +25,21 @@
                     foreach ($registerErrorMessage as $msg) {
                         echo $msg . "<br/>";
                     }
+                    
+                    ?>
+                </div>
+            <?php
+            }
+            ?>
+            <?php // to show success messages about bad inputs, we would have to show them on top of the page. Success messages are created in formValidation page
+            if (!empty($successMessage) && is_array($successMessage) && isset($_POST["registrationForm"])) {
+            ?>
+                <div class="error-message">
+                    <?php
+                    foreach ($successMessage as $msg) {
+                        echo $msg . "<br/>";
+                    }
+                    
                     ?>
                 </div>
             <?php
@@ -75,6 +91,18 @@
                     <label>Status</label>
                     <div>
                         <input type="text" class="input_textbox" name="status" value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">
+                    </div>
+                </div>
+                <div>
+                    <label>PostID</label>
+                    <div>
+                        <input type="number" class="input_textbox" name="postID" value="<?php if (isset($_POST['postID'])) echo $_POST['postID']; ?>">
+                    </div>
+                </div>
+                <div>
+                    <label>PostStatus</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="postStatus" value="<?php if (isset($_POST['postStatus'])) echo $_POST['postStatus']; ?>">
                     </div>
                 </div>
                 <div>
