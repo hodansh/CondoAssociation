@@ -44,14 +44,29 @@ VALUES
     (2,5,7),
     (2,6,7);
 
-select * from member;
+SELECT 
+    *
+FROM
+    Member;
 -- delete  from member where MemberID=3;
 -- delete  from member where MemberID=4;
 -- delete  from member where MemberID=5;
-select * from member;
-select * from Administrator;
-select * from Condo;
-select * from CondoGroups;
+SELECT 
+    *
+FROM
+    member;
+SELECT 
+    *
+FROM
+    Administrator;
+SELECT 
+    *
+FROM
+    Condo;
+SELECT 
+    *
+FROM
+    CondoGroups;
 -- delete  from CondoGroups where GroupID=1 and memberID=1 and leader=1;
 -- select * from CondoGroups;
 -- delete  from CondoGroups where GroupID=1 and memberID=2 and leader=1;
