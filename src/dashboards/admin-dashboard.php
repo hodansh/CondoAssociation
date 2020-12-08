@@ -1,22 +1,29 @@
 <?php
 
-    session_start();
-    echo "Welcome ". $_SESSION['userName'];
-    include_once "../validation/admin-dashboard-validation.php";
-    include_once "../database_operations.php";
+session_start();
+echo "Welcome " . $_SESSION['userName'];
+include_once "../validation/admin-dashboard-validation.php";
+include_once "../database_operations.php";
 ?>
 <html>
+
 <head>
+    <link href="../css/styles.css?version=52" rel="stylesheet" type="text/css" /> <!-- link to css file -->
+    <a class="form-head2" href="../index.php" style="font-weight: 600;">Sign-out</a>
     <title>Welcome to admin-dashboard</title>
+
 </head>
+
 <body>
-<p>You can register a new member here!</p>
+    <p class="form-head">You can register a new member here!</p>
 
     <form name="registrationForm" method="post" action="">
 
-               
-    <div class="table">
-            <div class="form-head"><p>Register here:</p></div>
+
+        <div class="table">
+            <div class="form-head">
+                <p>Register here:</p>
+            </div>
             <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
             if (!empty($registerErrorMessage) && is_array($registerErrorMessage) && isset($_POST["registrationForm"])) {
             ?>
@@ -25,7 +32,7 @@
                     foreach ($registerErrorMessage as $msg) {
                         echo $msg . "<br/>";
                     }
-                    
+
                     ?>
                 </div>
             <?php
@@ -39,7 +46,7 @@
                     foreach ($successMessage as $msg) {
                         echo $msg . "<br/>";
                     }
-                    
+
                     ?>
                 </div>
             <?php
@@ -56,15 +63,15 @@
                     <!-- for each of the input textboxs, whatever name that we chose will be used to get the input for that
                     text box. for example we refere to $_POST['userName'] to get the value of user input for username -->
                 </div>
-                
+
                 <div>
-                <label>Password</label>
-                <div><input type="password" class="input_textbox" name="password" value=""></div>
+                    <label>Password</label>
+                    <div><input type="password" class="input_textbox" name="password" value=""></div>
                 </div>
                 <div>
-                <label>Confirm Password</label>
+                    <label>Confirm Password</label>
                     <div>
-                    <input type="password" class="input_textbox" name="confirm_password" value="">
+                        <input type="password" class="input_textbox" name="confirm_password" value="">
                     </div>
                 </div>
                 <div>
@@ -72,7 +79,7 @@
                     <div>
                         <input type="text" class="input_textbox" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>">
                     </div>
-                    
+
                 </div>
                 <div>
                     <label>Address</label>
@@ -80,7 +87,7 @@
                         <input type="text" class="input_textbox" name="address" value="<?php if (isset($_POST['address'])) echo $_POST['address']; ?>">
                     </div>
                 </div>
-                
+
                 <div>
                     <label>Priviledge</label>
                     <div>
@@ -109,6 +116,7 @@
                     <input type="submit" name="registrationForm" value="register" class="btnRegister">
                 </div>
             </div>
-            </form>
-</body>        
+    </form>
+</body>
+
 </html>

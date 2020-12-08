@@ -12,10 +12,11 @@ include_once "./validation/admin-login-validation.php";
 
 <html>
 <head>
+<link href="../css/styles.css?version=52" rel="stylesheet" type="text/css" /> <!-- link to css file -->
     <title>Welcome to CondoAssociation</title>
 </head>
 <body>
-<h1> Welcome to CondoAssociation Admin Page</h1>
+<h1> Welcome to CondoAssociation:</h1>
 <form name="adminLoginForm" method="post" action="">
         
         <div class="table">
