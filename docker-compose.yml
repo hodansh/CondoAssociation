@@ -23,7 +23,7 @@ services:
       MYSQL_PASSWORD: devpass
       MYSQL_DATABASE: test_db
     ports:
-      - 8001:3308
+      - 8001:3306
     volumes:
       - mysql-data:/var/lib/mysql
 

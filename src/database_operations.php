@@ -51,3 +51,11 @@ function memberExists($email_input) // To check if a username/email input is alr
 //      VALUES ('$userName','$userPassword','$Email','$Company', '$Telephone','$PostalCode','$City','$Address',$EmployerCategoryId,'$Status');";
 //     $results = mysqli_query($conn, $sql);
 // }
+function getAllMembers() // adding new employer to the table
+{
+    global $conn;
+    $sql =
+        "Select * From Member;";
+        $result = mysqli_query($conn, $sql);
+        return $result;
+}
