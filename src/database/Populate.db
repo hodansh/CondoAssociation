@@ -7,7 +7,7 @@ VALUES
     ("John","as122","4562 fort","John@gmail.com","active","member"),
     ("Wilson","12345","457 Lectus Street","Wilson@gmail.com","active","member"),
     ("Keysee","aa22","8765 Cresent Street","Keysee@gmail.com","active","member"),
-	("user_0","pass","1950 Lincoln Street","Mahla@gmail2.com","active","member"),
+	("user_0","pas","1950 Lincoln Street","Mahla@gmail2.com","active","member"),
 	("user_1","pass","4645 abd Street","Mahla@gmail3.com","active","admin"),
     ("Jennifer","475rr","1256 Cohen Street","Jennifer@gmail.com","active","member"),
     ("Karen","karen12","8976 oldport Street","Karen@gmail.com","inactive","member");
@@ -33,24 +33,27 @@ VALUES
     (2,4,7),
     (2,5,7),
     (2,6,7);
+    INSERT INTO Post
+    (PostStatus,Content,MemberID)
+VALUES
+    ("public","test",1),
+    ("private","new one",2),
+    ("public","string",3),
+    ("public","a post",4),
+    ("private","new post",5),
+    ("private","post",6);
+    
 
-SELECT 
-    *
-FROM
-    Member;
+
 -- delete  from member where MemberID=3;
 -- delete  from member where MemberID=4;
 -- delete  from member where MemberID=5;
 
-SELECT 
-    *
-FROM
-    Condo;
-SELECT 
-    *
-FROM
-    CondoGroups;
 -- delete  from CondoGroups where GroupID=1 and memberID=1 and leader=1;
 -- select * from CondoGroups;
 -- delete  from CondoGroups where GroupID=1 and memberID=2 and leader=1;
--- select * from CondoGroups;
+
+SELECT * FROM Member;
+SELECT * FROM Post;
+SELECT * FROM Condo;
+SELECT * FROM CondoGroups;

@@ -24,15 +24,14 @@ function AddMember($name, $password, $address, $email, $status, $priviledge) // 
     mysqli_query($conn, $sql);
 }
 
-function AddPost( $postStatus,$content,$memberID) // adding new employer to the table
+function AddPost($postStatus, $content, $memberID) // adding new employer to the table
 {
     global $conn;
     $sql =
-    "INSERT INTO Post
+        "INSERT INTO Post
     (PostStatus,Content,MemberID) 
-    VALUES ('$postStatus','$content','$memberID');";
+    VALUES ('$postStatus','$content',memberID);";
     mysqli_query($conn, $sql);
-
 }
 
 function getAllMembers() // adding new member to the table
@@ -40,17 +39,33 @@ function getAllMembers() // adding new member to the table
     global $conn;
     $sql =
         "Select * From Member;";
-        $result = mysqli_query($conn, $sql);
-        return $result;
+    $result = mysqli_query($conn, $sql);
+    return $result;
 }
 function getAllPosts() // adding new member to the table
 {
     global $conn;
     $sql =
         "Select * From Post;";
-        $result = mysqli_query($conn, $sql);
-        return $result;
+    $result = mysqli_query($conn, $sql);
+    return $result;
 }
+function getPrivatePosts($memberid) // adding new member to the table
+{
+    global $conn;
+    $sql = "Select * From Post WHERE MemberID='$memberid'";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+
+function getPublicPosts() // adding new member to the table
+{
+    global $conn;
+    $sql = "Select * From Post WHERE PostStatus='Public'";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+
 
 
 
@@ -58,118 +73,55 @@ function findMember($emailInput)
 {
     global $conn;
     $sql = "SELECT * FROM Member WHERE Email='$emailInput'";
-  
+
     if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) { // if at least one email was matched
             $row = $result->fetch_row(); // this will get one full row of database for Member where Email matched
             $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
             return $row;
-           
-            
         }
         return "not found!";
-        
     }
 }
 
-function findPassword($passwordInput)
+
+
+
+function userIsMember($emailInput)
 {
     global $conn;
-    $sql = "SELECT * FROM Member WHERE Password='$passwordInput'";
-    $idPass="SELECT MemberID FROM Member WHERE Password='$passwordInput'";
-    if ($result = $conn->query($sql)) {
-        if (mysqli_num_rows($result) > 0) { // if at least one password was matched
-            $row = $result->fetch_row(); // this will get one full row of database for Member where password matched
-            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
-            return $row;
-            return $idPass;
-        }
-        return "not found!";
-        
-    }
-}
-function userPassMatch($emailInput,$passwordInput){
-    global $conn;
-    $sql="SELECT Password FROM Member WHERE Email='$emailInput'";
-    if ($result = $conn->query($sql)) {
-        if (mysqli_num_rows($result) > 0) { // if at least one email was matched
-            $row = $result->fetch_row(); // this will get one full row of database for Member where Email matched
-            if($row[0]==$passwordInput){
-                return true;
-            }
-          
-        }
-    }
-  
-}
-// function findPriviledge($priviledgeInput)
-// {
-//     global $conn;
-//     $sql = "SELECT * FROM Member WHERE Priviledge='$priviledgeInput'";
-//     if ($result = $conn->query($sql)) {
-//         if (mysqli_num_rows($result) > 0) { // if at least one priviledge was matched
-//             $row = $result->fetch_row(); // this will get one full row of database for Member where priviledge matched
-//             $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
-//             return $row;
-//         }
-//         return "not found!";
-//     }
-// }
-
-function findPriviledge($emailInput){
-    global $conn;
-    $sql="SELECT Priviledge FROM Member WHERE Email='$emailInput'";
+    $sql = "SELECT Priviledge FROM Member WHERE Email='$emailInput'";
     if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) { // if at least one email was matched
             $row = $result->fetch_row(); // this will get one full row of database for Member where Email matched
             echo $row[0];
-            if($row[0]=="member"){
+            if ($row[0] == "member") {
                 return true;
             }
-          
+            return false;
         }
     }
-  
 }
 
 
-function memberIsActive($emailInput){
+function memberIsActive($emailInput)
+{
     global $conn;
-    $sql="SELECT Status FROM Member WHERE Email='$emailInput'";
+    $sql = "SELECT Status FROM Member WHERE Email='$emailInput'";
     if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) { // if at least one email was matched
             $row = $result->fetch_row(); // this will get one full row of database for Member where Email matched
-            
-            if($row[0]=="active"){
+            if ($row[0] == "active") {
                 return true;
             }
-          
+            return false;
         }
     }
-  
 }
 
 
 
 
-
-
-// This function either returns a member or a string that says "not found"
-
-function authentication($emailInput, $passwordInput)
-{
-    $isMatched = false;
-       
-    $match_member = findMember($emailInput);
-    if ($match_member != "not found") {
-        if (strcasecmp($match_member[4], "$emailInput") == 0 && $match_member[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
-            // example: strcamsecmp(ABC,abc) will return 0userNameInput
-            $isMatched = True;
-            return $match_member;
-        }
-    }
-    return ["did not match"]; // This is where the username or password was not a match to the database
-}
 
 function deleteMemberByEmail($emailInput)
 {
@@ -184,3 +136,29 @@ function deleteMemberByEmail($emailInput)
     return $message;
 }
 
+function activateUser($memberIDinput)
+{
+    $message = "The member was already active or the member id is not correct!";
+    global $conn;
+    
+        $sql = "UPDATE Member
+        SET Status = 'active'
+        WHERE MemberID = $memberIDinput;";
+        if($conn->query($sql)){
+        $message = "successfully activated the member with ID= $memberIDinput";
+        }    
+    return $message;
+}
+function inactivateUser($memberIDinput)
+{
+    $message = "The member was already inactive or the member id is not correct!";
+    global $conn;
+    
+        $sql = "UPDATE Member
+        SET Status = 'inactive'
+        WHERE MemberID = $memberIDinput;";
+        if($conn->query($sql)){
+        $message = "successfully inactivated the member with ID= $memberIDinput";
+        }    
+    return $message;
+}

@@ -1,6 +1,6 @@
 <?php
 $valid = true; // at the end we will proceed to the next page only if valid is true
-
+include_once "../database_operations.php";
 $postErrorMessage = array();
 $postSuccessMessage = array();
 
@@ -23,4 +23,8 @@ else { // this means one or more of the fields are empty. (valid is not true)
     $postErrorMessage[] = "Please fill all the fields.";
 }
 
+if ($valid == true && isset($_POST['postForm'])) {
+   
+    AddPost($_POST["postStatus"], $_POST["content"],  $_SESSION['userID']);
+  }
  

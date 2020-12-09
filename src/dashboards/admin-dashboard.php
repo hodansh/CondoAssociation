@@ -1,5 +1,5 @@
 <?php
-
+include_once "../validation/member-post-validation.php";
 session_start();
 echo "<p class='form-head'> Welcome " . $_SESSION['userName'] . "</p>";
 include_once "../validation/admin-dashboard-validation.php";
@@ -59,9 +59,7 @@ include_once "../database_operations.php";
             <?php
             }
             ?>
-            <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-            <!-- TODO: Show error messages here: -->
-            <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            
             <div>
                 <label>Username</label>
                 <div>
@@ -160,19 +158,20 @@ include_once "../database_operations.php";
             echo "<div  class=form-head2 style='font-size: large;'>All the entries in Member table:</div><br>
         
         <table style='width: 1000px;' > <tr>
-        <td styles>Name</td>
+        <td styles>MemberID</td>
+        <td>Name</td>
         <td>Password</td>
         <td>Adress</td>
         <td>Email</td>
         <td>Status</td>
         <td>Priviledge</td>
-        <td> PostID</td>
+        
              
         
         </tr>";
             foreach ($_SESSION["showAllMembers"] as $row) {
                 foreach ($row as $key => $value) {
-                    if ($key == "MemberID") {
+                    if ($key == "PostID") {
                         echo "<tr>";
                     } else {
                         echo "<td> $value";
@@ -203,13 +202,86 @@ include_once "../database_operations.php";
             <input type="submit" name="deleteMemberByEmail" value=Delete Member by Email" class="btnRegister">
         </div>
     </form>
-<?php
-    if (isset($_POST["deleteMemberByEmail"])) { //show all the members:
-             $message=  deleteMemberByEmail($_POST["emailInputForDeletion"]);
-             echo "<p class='form-head'>".$message."</p>";
-        }
+ </form>
+    <form name="showAllPosts" method="post" action="">
+        <div class="table">
+            <label style="font-weight:200 ;">Click to see all the posts: </label>
+        </div>
+        <div>
+            <input type="submit" name="showAllPosts" value="Show All Posts" class="btnRegister">
+        </div>
+    </form>
+    <?php
+  
+    if (isset($_POST["showAllPosts"])) { //show all the tables:
+        $_SESSION["showAllPosts"] = getAllPosts();
 
-        ?>
+
+        if (isset($_SESSION["showAllPosts"])) {
+
+            echo "<div  class=form-head2 style='font-size: large;'>All the entries in Post table:</div><br>
+        
+        <table> 
+        <tr>
+        <td>PostStatus</td>
+        <td>Content</td>
+        <td>MemberID</td>
+        </tr>" ;
+        
+            foreach ($_SESSION["showAllPosts"] as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "PostID") {
+                        echo "<tr>";
+                    } else {
+                        echo "<td> $value";
+
+                        if ($key == "MemberID") {
+                            echo "</tr>";
+                        }
+                    }
+                }
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>No post could be found</h3><br>"; // Because no results found in Post.
+        }
+    }
+
+    ?>
+    <form name="activateUser" method="post" action="">
+        <div class="table">
+            <label style="font-weight:200 ;">Enter the memberID of the member you want to activate! </label>
+        </div>
+        <div>
+        <input type="number" class="input_textbox" name="memberIDtoChangeStatus" value="<?php if (isset($_POST['memberIDtoChangeStatus'])) echo $_POST['memberIDtoChangeStatus']; ?>">
+        </div>
+        <div>
+            <input type="submit" name="activateUser" value="activateUser" class="btnRegister">
+        </div>
+    </form>
+    <?php 
+    if(isset($_POST['activateUser'])){
+        echo(activateUser($_POST['memberIDtoChangeStatus']));
+    }
+    ?>
+<form name="inactivateUser" method="post" action="">
+        <div class="table">
+            <label style="font-weight:200 ;">Enter the memberID of the member you want to inactivate! </label>
+        </div>
+        <div>
+        <input type="number" class="input_textbox" name="memberIDtoChangeStatus" value="<?php if (isset($_POST['memberIDtoChangeStatus'])) echo $_POST['memberIDtoChangeStatus']; ?>">
+        </div>
+        <div>
+            <input type="submit" name="inactivateUser" value="inactivateUser" class="btnRegister">
+        </div>
+    </form>
+    <?php 
+    if(isset($_POST['inactivateUser'])){
+        echo(inactivateUser($_POST['memberIDtoChangeStatus']));
+    }
+    ?>
+
+
 </body>
 
 </html>

@@ -66,12 +66,7 @@ echo "Welcome " . $_SESSION['userName'];
                 <div>
     </tr>
     <tr>
-            <div>
-                <label>MemberID</label>
-            <div><input type="memberID" class="input_textbox" name="memberID" value=""<?php if (isset($_POST['memberID'])) echo $_POST['memberID']; ?>></div>
-                
 
-                </div>
                 <div>
     </tr>
         </table>
@@ -83,34 +78,37 @@ echo "Welcome " . $_SESSION['userName'];
                 <input type="submit" name="postForm" value="Submit">
 
     </form>
-    <form name="showAllPosts" method="post" action="">
+    <form name="showPrivatePosts" method="post" action="">
         <div class="table">
-            <label style="font-weight:200 ;">Click to see all the posts: </label>
+            <label style="font-weight:200 ;">Click to see your private posts: </label>
         </div>
         <div>
-            <input type="submit" name="showAllPosts" value="Show All Posts" class="btnRegister">
+            <input type="submit" name="showPrivatePosts" value="Show my private Posts" class="btnRegister">
         </div>
     </form>
     <?php
+   
+        
   
-    if (isset($_POST["showAllPosts"])) { //show all the tables:
-        $_SESSION["showAllPosts"] = getAllPosts();
+    if (isset($_POST["showPrivatePosts"])) { //show all the tables:
+        $_SESSION["showPrivatePosts"] = getPrivatePosts($_SESSION ['userID']);
 
 
-        if (isset($_SESSION["showAllPosts"])) {
+        if (isset($_SESSION["showPrivatePosts"])) {
 
-            echo "<div  class=form-head2 style='font-size: large;'>All the entries in Post table:</div><br>
+            echo "<div  class=form-head2 style='font-size: large;'>All the  private entries in Post table:</div><br>
         
         <table> 
         <tr>
         <td>PostStatus</td>
         <td>Content</td>
         <td>MemberID</td>
+        
         </tr>" ;
         
-            foreach ($_SESSION["showAllPosts"] as $row) {
+            foreach ($_SESSION["showPrivatePosts"] as $row) {
                 foreach ($row as $key => $value) {
-                    if ($key == "PostStatus") {
+                    if ($key == "PostID") {
                         echo "<tr>";
                     } else {
                         echo "<td> $value";
@@ -128,6 +126,51 @@ echo "Welcome " . $_SESSION['userName'];
     }
 
     ?>
+        </form>
+    <form name="showPublicPosts" method="post" action="">
+        <div class="table">
+            <label style="font-weight:200 ;">Click to see your public posts: </label>
+        </div>
+        <div>
+            <input type="submit" name="showPublicPosts" value="Show public Posts" class="btnRegister">
+        </div>
+    </form>
+ <?php  
+    if (isset($_POST["showPublicPosts"])) { //show all the tables:
+        $_SESSION["showPublicPosts"] = getPublicPosts();
+
+
+        if (isset($_SESSION["showPublicPosts"])) {
+
+            echo "<div  class=form-head2 style='font-size: large;'>All the  Public entries in Post table:</div><br>
+        
+        <table> 
+        <tr>
+        <td>PostStatus</td>
+        <td>Content</td>
+        <td>MemberID</td>
+        </tr>" ;
+        
+            foreach ($_SESSION["showPublicPosts"] as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "PostID") {
+                        echo "<tr>";
+                    } else {
+                        echo "<td> $value";
+
+                        if ($key == "MemberID") {
+                            echo "</tr>";
+                        }
+                    }
+                }
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>No post could be found</h3><br>"; // Because no results found in Post.
+        }
+    }
+
+    ?>   
 
 
 </body>
