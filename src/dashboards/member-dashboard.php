@@ -56,11 +56,20 @@ echo "Welcome " . $_SESSION['userName'];
             <div>
                 <label>PostStatus</label>
                 <div>
-                    <select name="postStatus" id="postStatus"<?php if (isset($_POST['postStatus'])) echo $_POST['content']; ?> >
+                    <select name="postStatus" id="postStatus"<?php if (isset($_POST['postStatus'])) echo $_POST['postStatus']; ?> >
                         <!-- This is a drop-down menu. $_POST['postStatus] will give you the value of selected option after form submission. -->
                         <option hidden disabled selected value> -- select an option -- </option>
                         <option value="private">Private</option>
                         <option value="public">Public</option>
+
+                </div>
+                <div>
+    </tr>
+    <tr>
+            <div>
+                <label>MemberID</label>
+            <div><input type="memberID" class="input_textbox" name="memberID" value=""<?php if (isset($_POST['memberID'])) echo $_POST['memberID']; ?>></div>
+                
 
                 </div>
                 <div>
@@ -92,10 +101,13 @@ echo "Welcome " . $_SESSION['userName'];
 
             echo "<div  class=form-head2 style='font-size: large;'>All the entries in Post table:</div><br>
         
-        <table> <tr>
+        <table> 
+        <tr>
         <td>PostStatus</td>
         <td>Content</td>
-        </tr>";
+        <td>MemberID</td>
+        </tr>" ;
+        
             foreach ($_SESSION["showAllPosts"] as $row) {
                 foreach ($row as $key => $value) {
                     if ($key == "PostStatus") {
@@ -103,7 +115,7 @@ echo "Welcome " . $_SESSION['userName'];
                     } else {
                         echo "<td> $value";
 
-                        if ($key == "Content") {
+                        if ($key == "MemberID") {
                             echo "</tr>";
                         }
                     }

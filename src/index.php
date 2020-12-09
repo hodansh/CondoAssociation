@@ -34,6 +34,35 @@ include_once "./validation/login-validation.php";
             <?php
             }
             ?>
+            <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
+            if (!empty($loginSuccessMessage) && is_array($loginSuccessMessage) && isset($_POST["loginForm"])) {
+            ?>
+                <div class="error-message">
+                    <?php
+                    foreach ($loginSuccessMessage as $message) {
+                        echo $message . "<br/>";
+                    }
+                    ?>
+                </div>
+            <?php
+            }
+            ?>
+
+<?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
+            if (!empty($priviledgeMessage) && is_array($priviledgeMessage) && isset($_POST["loginForm"])) {
+            ?>
+                <div class="error-message">
+                    <?php
+                    foreach ($priviledgeMessage as $message) {
+                        echo $message . "<br/>";
+                    }
+                    ?>
+                </div>
+            <?php
+            }
+            ?>
+
+
             
             <div>
                 <label> Email/Username:</label>

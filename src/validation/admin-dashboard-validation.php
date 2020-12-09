@@ -21,7 +21,7 @@ if (!isset($error_message)) {
 
 if ($valid == true) {
 
-  if (findMember($_POST['email'])!= "not found"){
+  if (findMember($_POST['email'])!= "not found!"){
     $registerErrorMessage[] = "A member with this email address already exist in the database!";
 $valid = false;
   }

@@ -1,8 +1,14 @@
+
+
+
 <?php
-// include_once "../database_operations.php";
+session_start();
+include "././database_operations.php";
 $valid = true; // at the end we will proceed to the next page only if valid is true
 $logInErrorMessage = array();
 $registerErrorMessage = array();
+$loginSuccessMessage= array();
+$priviledgeMessage= array();
 
 foreach ($_POST as $key => $value) { // if any of the fields are empty the user has to fix it.
 
@@ -22,11 +28,38 @@ if ($valid == true) {
 // You should use authentication function
 
 // -------------------------------------------------------------------------------------------------------------
-    //  if(authentication($_POST['userName'], $_POST['password'] )){
+
         
-    //     echo "<script type='text/javascript'>window.location.href = '../dashboards/member-post-dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
-    //  }
-     
+            if(memberIsActive($_POST['userName'])==true){
+                
+            
+            
+        if (findMember($_POST['userName'])!= "not found!"){
+            if(findPassword($_POST['password'])!= "not found!"){
+                if(userPassMatch($_POST['userName'],$_POST['password'])==true){
+                    $loginSuccessMessage[]= "User logged in";
+                
+                }
+                
+                if(findPriviledge($_POST['userName'])== true){
+                    $priviledgeMessage="User is a member";
+                    $_SESSION["userName"] = $_POST['userName'];
+
+                    
+                    echo "<script type='text/javascript'>window.location.href = '../dashboards/member-dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to  member dashboard    
+                }
+                else{
+                  //  echo "<script type='text/javascript'>window.location.href = '../dashboards/admin-dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to   dashboard  
+
+                }
+            
+          }
+     }
+
+    }
+    else if(memberIsActive($_POST['userName'])!=true){
+        $priviledgeMessage[]="User is inactive! Cannot login!";
+     }
      else {
        // If we reach here then both username and password fields were filled out and are not empty.
          $logInErrorMessage[] = "Your username/email/password is not correct!";

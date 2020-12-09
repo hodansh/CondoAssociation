@@ -35,7 +35,12 @@ include_once "../database_operations.php";
                         echo $msg . "<br/>";
                     }
 
+                    
                     ?>
+ 
+
+
+
                 </div>
             <?php
             }
@@ -172,7 +177,7 @@ include_once "../database_operations.php";
                     } else {
                         echo "<td> $value";
 
-                        if ($key == "Priviledge") {
+                        if ($key == "PostID") {
                             echo "</tr>";
                         }
                     }
