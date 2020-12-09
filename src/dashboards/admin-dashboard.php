@@ -108,14 +108,7 @@ include_once "../database_operations.php";
                     </tr>
 
 
-                    <div>
-
-                        <label>PostID</label>
-                        <div>
-                            <input type="number" class="input_textbox" name="postID" value="<?php if (isset($_POST['postID'])) echo $_POST['postID']; ?>">
-                        </div>
-                    </div>
-                    <div>
+                    
                         <tr>
                             <div>
                                 <label>Status</label>
@@ -133,16 +126,7 @@ include_once "../database_operations.php";
 
 
 
-                        <div>
-                            <label>PostStatus</label>
-                            <div>
-                                <select name="postStatus" id="postStatus">
-                                    <!-- This is a drop-down menu. $_POST['postStatus] will give you the value of selected option after form submission. -->
-                                    <option hidden disabled selected value> -- select an option -- </option>
-                                    <option value="private">Private</option>
-                                    <option value="public">Public</option>
-
-                            </div>
+                        
 
 
                             <div>
@@ -178,15 +162,12 @@ include_once "../database_operations.php";
         
         <table> <tr>
         <td styles>Name</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>
-        <td>titleee</td>         
+        <td>Password</td>
+        <td>Adress</td>
+        <td>Email</td>
+        <td>Status</td>
+        <td>Priviledge</td>
+             
         
         </tr>";
             foreach ($_SESSION["showAllMembers"] as $row) {
@@ -196,7 +177,7 @@ include_once "../database_operations.php";
                     } else {
                         echo "<td> $value";
 
-                        if ($key == "PostStatus") {
+                        if ($key == "Priviledge") {
                             echo "</tr>";
                         }
                     }

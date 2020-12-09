@@ -14,13 +14,13 @@ foreach ($_POST as $key => $value) { // if any of the fields are empty the user 
 
 
 if ($valid == true) {
-    if (isset($_POST['comment'])){
+    if (isset($_POST['content'])){
 
       $postSuccessMessage[] = "The post was successfully added to database.";
     }
 }
 else { // this means one or more of the fields are empty. (valid is not true)
-    $postErrorMessage[] = "Please add a post.";
+    $postErrorMessage[] = "Please fill all the fields.";
 }
 
  
