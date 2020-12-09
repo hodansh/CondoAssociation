@@ -100,9 +100,8 @@ include_once "../database_operations.php";
                                 <select name="priviledge" id="priviledge">
                                     <!-- This is a drop-down menu. $_POST['priviledge] will give you the value of selected option after form submission. -->
                                     <option hidden disabled selected value> -- select an option -- </option>
-                                    <option value="Owner">Owner</option>
-                                    <option value="Member">Member</option>
-                                    <option value="administrator">Administrator</option>
+                                    <option value="member">Member</option>
+                                    <option value="admin">Administrator</option>
 
                             </div>
                     </tr>

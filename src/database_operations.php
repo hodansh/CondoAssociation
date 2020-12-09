@@ -22,9 +22,6 @@ function AddMember($name, $password, $address, $email, $status, $priviledge) // 
     (Name, Password,Address,Email,Status,Priviledge) 
     VALUES ('$name','$password','$address','$email', '$status','$priviledge');";
     mysqli_query($conn, $sql);
-    // if(!$results){
-    //     echo 'true';
-    // }
 }
 
 function AddPost( $postStatus,$content) // adding new employer to the table

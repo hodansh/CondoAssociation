@@ -1,16 +1,16 @@
 INSERT INTO member
 	(Name, Password,Address,Email,Status,Priviledge,PostID,PostStatus)
 VALUES
-	("admin","admin","467-7255 Lectus Street","Kayla@gmail.com","active","admin",1,"public"),
+	("admin","admin","467-7255 Lectus Street","a@gmail.com","active","admin",1,"public"),
     ("Hoda","Hodao1","467-324 Cresent Street","Hoda@gmail.com","inactive","member",2,"private"),
-    ("Ali","123","1234 SaintC Street","Ali@gmail.com","active","owner","3","public"),
+    ("Ali","123","1234 SaintC Street","Ali@gmail.com","active","member","3","public"),
     ("John","as122","4562 fort","John@gmail.com","active","member","5","private"),
-    ("Wilson","12345","457 Lectus Street","Wilson@gmail.com","active","owner","7","private"),
+    ("Wilson","12345","457 Lectus Street","Wilson@gmail.com","active","member","7","private"),
     ("Keysee","aa22","8765 Cresent Street","Keysee@gmail.com","active","member","10","private"),
-	("admin","admin","1950 Lincoln Street","Mahla@gmail.com","active","admin","11","private"),
-	("admin","admin","4645 abd Street","Mahla@gmail.com","active","admin","11","private"),
-    ("Jennifer","475rr","1256 Cohen Street","Jennifer@gmail.com","active","owner","12","public"),
-    ("Karen","karen12","8976 oldport Street","Karen@gmail.com","inactive","owner","14","private");
+	("user_0","pass","1950 Lincoln Street","Mahla@gmail2.com","active","member","11","private"),
+	("user_1","pass","4645 abd Street","Mahla@gmail3.com","active","admin","11","private"),
+    ("Jennifer","475rr","1256 Cohen Street","Jennifer@gmail.com","active","member","12","public"),
+    ("Karen","karen12","8976 oldport Street","Karen@gmail.com","inactive","member","14","private");
 --     
       
 --     
@@ -26,7 +26,7 @@ VALUES
 
     
 INSERT INTO Condo
-    (StorageNumber, ParkingNumber, SquareMeter,OwnerID)
+    (StorageNumber, ParkingNumber, SquareMeter,memberID)
 VALUES
     (1, 1, 300,3),
     (2, 2, 1000,5),

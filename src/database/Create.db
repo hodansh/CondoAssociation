@@ -28,17 +28,6 @@ CREATE TABLE Condo (
         REFERENCES Member (MemberID)
 );
 
-CREATE TABLE Administrator (
-    AdministratorID INT NOT NULL AUTO_INCREMENT,
-    UsernameAdmin VARCHAR(100) NOT NULL,
-    PasswordAdmin VARCHAR(100) NOT NULL,
-    BuildingNumber INT NOT NULL,
-    MemberID INT NOT NULL,
-    PRIMARY KEY (AdministratorID),
-    FOREIGN KEY (MemberID)
-        REFERENCES Member (MemberID)
-);
-
 CREATE TABLE CondoGroups (
     GroupID INT NOT NULL,
     MemberID INT NOT NULL,
