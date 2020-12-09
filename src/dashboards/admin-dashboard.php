@@ -145,13 +145,10 @@ include_once "../database_operations.php";
         </div>
     </form>
     <?php
-    // $_SESSION["allMembers"] = getAllMembers();
-    // foreach($_SESSION["allMembers"] as $member){
-    //     echo $member["Name"]."<br/>";
-    // }
 
 
-    if (isset($_POST["showAllMembers"])) { //show all the tables:
+
+    if (isset($_POST["showAllMembers"])) { //show all the members:
         $_SESSION["showAllMembers"] = getAllMembers();
         
 
@@ -166,6 +163,7 @@ include_once "../database_operations.php";
         <td>Email</td>
         <td>Status</td>
         <td>Priviledge</td>
+        <td> PostID</td>
              
         
         </tr>";

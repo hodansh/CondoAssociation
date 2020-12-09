@@ -12,8 +12,7 @@ CREATE TABLE Member (
     Email VARCHAR(100) NOT NULL,
     Status VARCHAR(100) NOT NULL,
     Priviledge VARCHAR(100) NOT NULL,
-    PostID INT NOT NULL,
-    PostStatus VARCHAR(100) NOT NULL,
+    PostID INT,
     PRIMARY KEY (MemberID)
 );
 
@@ -22,9 +21,9 @@ CREATE TABLE Condo (
     StorageNumber INT NOT NULL,
     ParkingNumber INT NOT NULL,
     SquareMeter INT NOT NULL,
-    OwnerID INT NOT NULL,
+    MemberID INT NOT NULL,
     PRIMARY KEY (CondoNumber),
-    FOREIGN KEY (OwnerID)
+    FOREIGN KEY (MemberID)
         REFERENCES Member (MemberID)
 );
 
