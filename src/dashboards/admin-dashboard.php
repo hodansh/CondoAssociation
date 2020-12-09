@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-echo "Welcome " . $_SESSION['userName'];
+echo "<p class='form-head'> Welcome " . $_SESSION['userName'] . "</p>";
 include_once "../validation/admin-dashboard-validation.php";
 include_once "../database_operations.php";
 ?>
@@ -15,9 +15,7 @@ include_once "../database_operations.php";
 </head>
 
 <body>
-    <table> <a class="form-head2" href="../index.php" style="font-weight: 600;"><br />Sign-out</a>
-
-    </table>
+    <a class="form-head2" href="../index.php" style="font-weight: 600; font-size:large"><br />Sign-out</a>
 
     <p class="form-head">You can register a new member here!</p>
 
@@ -107,31 +105,31 @@ include_once "../database_operations.php";
                     </tr>
 
 
-                    
-                        <tr>
-                            <div>
-                                <label>Status</label>
-                                <div>
-                                    <select name="status" id="status">
-                                        <!-- This is a drop-down menu. $_POST['status] will give you the value of selected option after form submission. -->
-                                        <option hidden disabled selected value> -- select an option -- </option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
 
-                                </div>
+                    <tr>
+                        <div>
+                            <label>Status</label>
+                            <div>
+                                <select name="status" id="status">
+                                    <!-- This is a drop-down menu. $_POST['status] will give you the value of selected option after form submission. -->
+                                    <option hidden disabled selected value> -- select an option -- </option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
 
                             </div>
-                        </tr>
 
-
-
-                        
-
-
-                            <div>
-                                <input type="submit" name="registrationForm" value="register" class="btnRegister">
-                            </div>
                         </div>
+                    </tr>
+
+
+
+
+
+
+                    <div>
+                        <input type="submit" name="registrationForm" value="register" class="btnRegister">
+                    </div>
+            </div>
     </form>
 
 
@@ -150,13 +148,13 @@ include_once "../database_operations.php";
 
     if (isset($_POST["showAllMembers"])) { //show all the members:
         $_SESSION["showAllMembers"] = getAllMembers();
-        
+
 
         if (isset($_SESSION["showAllMembers"])) {
 
             echo "<div  class=form-head2 style='font-size: large;'>All the entries in Member table:</div><br>
         
-        <table> <tr>
+        <table style='width: 1000px;' > <tr>
         <td styles>Name</td>
         <td>Password</td>
         <td>Adress</td>
@@ -189,10 +187,24 @@ include_once "../database_operations.php";
     ?>
 
 
+<form name="deleteMemberByEmail" method="post" action="">
+        <div class="table">
+            <label style="font-weight:200 ;">Enter the email address of the member you want to delete! </label>
+        </div>
+        <div>
+        <input type="text" class="input_textbox" name="emailInputForDeletion" value="<?php if (isset($_POST['emailInputForDeletion'])) echo $_POST['emailInputForDeletion']; ?>">
+        </div>
+        <div>
+            <input type="submit" name="deleteMemberByEmail" value=Delete Member by Email" class="btnRegister">
+        </div>
+    </form>
+<?php
+    if (isset($_POST["deleteMemberByEmail"])) { //show all the members:
+             $message=  deleteMemberByEmail($_POST["emailInputForDeletion"]);
+             echo "<p class='form-head'>".$message."</p>";
+        }
 
-
-
-
+        ?>
 </body>
 
 </html>

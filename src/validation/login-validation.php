@@ -37,4 +37,3 @@ else { // this means one or more of the fields are empty. (valid is not true)
     $logInErrorMessage[] = "All fields are required.";
 }
 ?>
-// php ro nabaste boodi

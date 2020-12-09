@@ -35,32 +35,6 @@ function AddPost( $postStatus,$content) // adding new employer to the table
 
 }
 
-
-
-function memberExists($email_input) // To check if a username/email input is already taken in Emloyer table
-// This method will return an array[boolean,boolean], the first boolean is true when username was taken and
-// the second one is true for when the email taken.
-{
-    $email_taken = false;
-    global $conn; // we need to globalize $conn inside our function, otherwise function will not have access to it and will give errors.
-
-    $sql_member_email = "SELECT * FROM Member WHERE Email='$email_input'";
-    $res_member_email = mysqli_query($conn, $sql_member_email);
-
-    if (mysqli_num_rows($res_member_email) > 0) {  //if the username is found, the number of rows for the result would not be zero
-        $email_taken = true;
-    }
-    $result = $email_taken;
-    return $result;
-}
-
-
-
-//     $sql = "INSERT INTO Employer 
-//          (UserName, UserPassword, Email, Company, Telephone, PostalCode, City, Address, EmployerCategoryId,Status)
-//      VALUES ('$userName','$userPassword','$Email','$Company', '$Telephone','$PostalCode','$City','$Address',$EmployerCategoryId,'$Status');";
-//     $results = mysqli_query($conn, $sql);
-// }
 function getAllMembers() // adding new member to the table
 {
     global $conn;
@@ -103,7 +77,7 @@ function authentication($emailInput, $passwordInput)
     $match_member = findMember($emailInput);
     if ($match_member != "not found") {
         if (strcasecmp($match_member[4], "$emailInput") == 0 && $match_member[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
-            // example: strcamsecmp(ABC,abc) will return 0
+            // example: strcamsecmp(ABC,abc) will return 0userNameInput
             $isMatched = True;
             return $match_member;
         }
@@ -111,4 +85,16 @@ function authentication($emailInput, $passwordInput)
     return ["did not match"]; // This is where the username or password was not a match to the database
 }
 
+function deleteMemberByEmail($emailInput)
+{
+    global $conn;
+    $message = "We could not find any member with email= $emailInput.";
+    if (findMember($emailInput) != "not found!") {
+        $sql = "DELETE FROM Member WHERE Email='$emailInput';";
+        if ($result = $conn->query($sql)) {
+            $message = "$emailInput was successfully deleted from Members.";
+        }
+    }
+    return $message;
+}
 

@@ -41,14 +41,7 @@ FROM
 -- delete  from member where MemberID=3;
 -- delete  from member where MemberID=4;
 -- delete  from member where MemberID=5;
-SELECT 
-    *
-FROM
-    member;
-SELECT 
-    *
-FROM
-    Administrator;
+
 SELECT 
     *
 FROM

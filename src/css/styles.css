@@ -112,3 +112,6 @@ table, th, td {
     padding: 50px;
     margin: 20px;
 }
+label{
+    font-size: medium;
+}
