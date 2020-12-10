@@ -2,7 +2,7 @@
 include_once "../validation/member-post-validation.php";
 include_once "../database_operations.php";
 session_start();
-echo "Welcome " . $_SESSION['userName'];
+echo "Welcome " . $_SESSION['email'];
 
 ?>
 <html>
@@ -49,33 +49,33 @@ echo "Welcome " . $_SESSION['userName'];
         <?php
         }
         ?>
-        
+
         <div>
-        <table>
-         <tr>
-            <div>
-                <label>PostStatus</label>
-                <div>
-                    <select name="postStatus" id="postStatus"<?php if (isset($_POST['postStatus'])) echo $_POST['postStatus']; ?> >
-                        <!-- This is a drop-down menu. $_POST['postStatus] will give you the value of selected option after form submission. -->
-                        <option hidden disabled selected value> -- select an option -- </option>
-                        <option value="private">Private</option>
-                        <option value="public">Public</option>
+            <table>
+                <tr>
+                    <div>
+                        <label>PostStatus</label>
+                        <div>
+                            <select name="postStatus" id="postStatus" <?php if (isset($_POST['postStatus'])) echo $_POST['postStatus']; ?>>
+                                <!-- This is a drop-down menu. $_POST['postStatus] will give you the value of selected option after form submission. -->
+                                <option hidden disabled selected value> -- select an option -- </option>
+                                <option value="private">Private</option>
+                                <option value="public">Public</option>
 
-                </div>
-                <div>
-    </tr>
-    <tr>
+                        </div>
+                        <div>
+                </tr>
+                <tr>
 
-                <div>
-    </tr>
-        </table>
-             
+                    <div>
+                </tr>
+            </table>
 
-                <textarea id="post" rows="30" cols="70" name="content" value="<?php if (isset($_POST['content'])) echo $_POST['content']; ?>">
+
+            <textarea id="post" rows="30" cols="70" name="content" value="<?php if (isset($_POST['content'])) echo $_POST['content']; ?>">
 </textarea>
 
-                <input type="submit" name="postForm" value="Submit">
+            <input type="submit" name="postForm" value="Submit">
 
     </form>
     <form name="showPrivatePosts" method="post" action="">
@@ -87,14 +87,14 @@ echo "Welcome " . $_SESSION['userName'];
         </div>
     </form>
     <?php
-   
-        
-  
+
+
+
     if (isset($_POST["showPrivatePosts"])) { //show all the tables:
-        $_SESSION["showPrivatePosts"] = getPrivatePosts($_SESSION ['userID']);
+        $myPrivatePosts = getPrivatePosts($_SESSION['userID']);
 
 
-        if (isset($_SESSION["showPrivatePosts"])) {
+        if (isset($myPrivatePosts)) {
 
             echo "<div  class=form-head2 style='font-size: large;'>All the  private entries in Post table:</div><br>
         
@@ -104,9 +104,9 @@ echo "Welcome " . $_SESSION['userName'];
         <td>Content</td>
         <td>MemberID</td>
         
-        </tr>" ;
-        
-            foreach ($_SESSION["showPrivatePosts"] as $row) {
+        </tr>";
+
+            foreach ($myPrivatePosts as $row) {
                 foreach ($row as $key => $value) {
                     if ($key == "PostID") {
                         echo "<tr>";
@@ -126,32 +126,33 @@ echo "Welcome " . $_SESSION['userName'];
     }
 
     ?>
-        </form>
+    </form>
     <form name="showPublicPosts" method="post" action="">
         <div class="table">
-            <label style="font-weight:200 ;">Click to see your public posts: </label>
+            <label style="font-weight:200 ;">Click to see the public posts: </label>
         </div>
         <div>
-            <input type="submit" name="showPublicPosts" value="Show public Posts" class="btnRegister">
+            <input type="submit" name="showPublicPosts" value="Show my public Posts" class="btnRegister">
         </div>
     </form>
- <?php  
+    <?php
     if (isset($_POST["showPublicPosts"])) { //show all the tables:
-        $_SESSION["showPublicPosts"] = getPublicPosts();
+        $myPublicPosts= getPublicPosts($_SESSION['userID']);
+           
 
-
-        if (isset($_SESSION["showPublicPosts"])) {
+        if ($myPublicPosts) {
 
             echo "<div  class=form-head2 style='font-size: large;'>All the  Public entries in Post table:</div><br>
-        
+
         <table> 
         <tr>
         <td>PostStatus</td>
         <td>Content</td>
         <td>MemberID</td>
-        </tr>" ;
-        
-            foreach ($_SESSION["showPublicPosts"] as $row) {
+        </tr>";
+
+
+            foreach ($myPublicPosts as $row) {
                 foreach ($row as $key => $value) {
                     if ($key == "PostID") {
                         echo "<tr>";
@@ -170,7 +171,7 @@ echo "Welcome " . $_SESSION['userName'];
         }
     }
 
-    ?>   
+    ?>
 
 
 </body>

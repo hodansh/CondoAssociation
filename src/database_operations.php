@@ -30,7 +30,7 @@ function AddPost($postStatus, $content, $memberID) // adding new employer to the
     $sql =
         "INSERT INTO Post
     (PostStatus,Content,MemberID) 
-    VALUES ('$postStatus','$content',memberID);";
+    VALUES ('$postStatus','$content',$memberID);";
     mysqli_query($conn, $sql);
 }
 
@@ -53,15 +53,15 @@ function getAllPosts() // adding new member to the table
 function getPrivatePosts($memberid) // adding new member to the table
 {
     global $conn;
-    $sql = "Select * From Post WHERE MemberID='$memberid'";
+    $sql = "Select * From Post WHERE MemberID=$memberid and PostStatus='private';";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
 
-function getPublicPosts() // adding new member to the table
+function getPublicPosts($memberid) // adding new member to the table
 {
     global $conn;
-    $sql = "Select * From Post WHERE PostStatus='Public'";
+    $sql = "Select * From Post WHERE MemberID=$memberid and PostStatus='public';";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
